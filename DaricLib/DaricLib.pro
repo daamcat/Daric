@@ -41,6 +41,7 @@ SOURCES += \
         GraphicsView.cpp \
         IdentityProxyModel.cpp \
         MySqlTableModel2.cpp \
+        NewRecordWidget.cpp \
         PushButtonRecordEdit.cpp \
         TableManager.cpp \
         TableModel.cpp \
@@ -65,6 +66,7 @@ HEADERS += \
         IdentityProxyModel.h \
         MainWindow.h \
         MySqlTableModel2.h \
+        NewRecordWidget.h \
         PushButtonRecordEdit.h \
         TableManager.h \
         TableModel.h \
@@ -77,7 +79,8 @@ HEADERS += \
 
 
 FORMS += \
-        MainWindow.ui
+        MainWindow.ui \
+        NewRecordWidget.ui
 
 
 unix {

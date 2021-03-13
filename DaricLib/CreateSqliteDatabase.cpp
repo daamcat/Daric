@@ -49,6 +49,8 @@ CreateSqliteDatabase::CreateSqliteDatabase()
     m_tableForeignKeysCurrency.push_back(Name);
     Field ExchangeRateToEuro {"ExchangeRateToEuro" , "Exchange to Euro", "REAL", "", 1 , 0 , DisplayType::DisplayTypeEnum::real, 1, 0, config.visibilityLevelUser};
     m_tableForeignKeysCurrency.push_back(ExchangeRateToEuro);
+    Field Symbol {"Symbol" , "Symbol of currency", "TEXT", "", 1 , 0 , DisplayType::DisplayTypeEnum::text, 1, 0, config.visibilityLevelUser};
+    m_tableForeignKeysCurrency.push_back(Symbol);
 
     m_tableProperties.push_back(ID);
     Field fieldName {"fieldName" , "fieldName", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
