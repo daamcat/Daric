@@ -131,6 +131,7 @@ void MainWindow::slotPushButtonDebugClicked()
 }
 
 
+
 cv::Mat analyze_image(const cv::Mat& large)
 {
     // Ref: https://stackoverflow.com/questions/23506105/extracting-text-opencv

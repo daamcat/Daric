@@ -35,6 +35,7 @@ SOURCES += \
         Chart.cpp \
         Configuration.cpp \
         CreateSqliteDatabase.cpp \
+        DateEdit.cpp \
         DeleteRecord.cpp \
         EditRecord.cpp \
         GraphicsScene.cpp \
@@ -59,6 +60,7 @@ HEADERS += \
         Chart.h \
         Configuration.h \
         CreateSqliteDatabase.h \
+        DateEdit.h \
         DeleteRecord.h \
         EditRecord.h \
         GraphicsScene.h \

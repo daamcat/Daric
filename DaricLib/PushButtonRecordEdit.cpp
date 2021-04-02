@@ -16,36 +16,36 @@ void PushButtonRecordEdit::slotSetEnabled()
 
 void PushButtonRecordEdit::slotSetMode(PushButtonMode mode)
 {
-    if (mode == PushButtonMode::addMode)
+    if (mode == PushButtonMode::modeAdd)
     {
-        slotSetModeToAddMode();
+        slotSetModeToModeAdd();
     }
-    else if (mode == PushButtonMode::editMode)
+    else if (mode == PushButtonMode::modeEdit)
     {
-        slotSetModeToEditMode();
+        slotSetModeToModeEdit();
     }
     // With change in mode, initially we disable the button:
     setEnabled(false);
 }
 
-void PushButtonRecordEdit::slotSetModeToEditMode()
+void PushButtonRecordEdit::slotSetModeToModeEdit()
 {
-    m_mode = PushButtonMode::editMode;
-    setText(ButtonTextEditMode);
+    m_mode = PushButtonMode::modeEdit;
+    setText(ButtonTextModeEdit);
 }
-void PushButtonRecordEdit::slotSetModeToAddMode()
+void PushButtonRecordEdit::slotSetModeToModeAdd()
 {
-    m_mode = PushButtonMode::addMode;
-    setText(ButtonTextAddMode);
+    m_mode = PushButtonMode::modeAdd;
+    setText(ButtonTextModeAdd);
 }
 
 void PushButtonRecordEdit::slotSendConfirmationSignal()
 {
-    if (m_mode == PushButtonMode::addMode)
+    if (m_mode == PushButtonMode::modeAdd)
     {
         emit signalConfirmInsert();
     }
-    else if (m_mode == PushButtonMode::editMode)
+    else if (m_mode == PushButtonMode::modeEdit)
     {
         emit signalConfirmEdit();
     }

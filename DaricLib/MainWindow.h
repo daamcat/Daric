@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMouseEvent>
 
 
 class DatabaseManager;
@@ -24,6 +25,7 @@ private:
 
 private slots:
     void slotPushButtonDebugClicked();
+
 };
 
 #endif // MAINWINDOW_H

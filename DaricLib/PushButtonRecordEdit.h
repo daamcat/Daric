@@ -5,8 +5,8 @@
 
 enum class PushButtonMode
 {
-    editMode,
-    addMode
+    modeEdit,
+    modeAdd
 };
 
 class PushButtonRecordEdit : public QPushButton
@@ -20,8 +20,8 @@ public slots:
     void slotSetDisabled();
     void slotSetEnabled();
     void slotSetMode(PushButtonMode mode);
-    void slotSetModeToEditMode();
-    void slotSetModeToAddMode();
+    void slotSetModeToModeEdit();
+    void slotSetModeToModeAdd();
 
 private slots:
     void slotSendConfirmationSignal();
@@ -31,10 +31,10 @@ signals:
     void signalConfirmInsert();
 
 private:
-    PushButtonMode m_mode = PushButtonMode::addMode;
+    PushButtonMode m_mode = PushButtonMode::modeAdd;
 
-    const QString ButtonTextEditMode = "Confirm";
-    const QString ButtonTextAddMode = "Insert";
+    const QString ButtonTextModeEdit = "Confirm";
+    const QString ButtonTextModeAdd = "Insert";
 };
 
 #endif // PUSHBUTTONRECORDEDIT_H

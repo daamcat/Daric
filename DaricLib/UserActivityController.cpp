@@ -21,10 +21,10 @@ UserActivityController::UserActivityController(TableView* dataTable,
     QObject::connect(m_editTable, &TableWidget::cellChanged,
                      m_pushButton, &PushButtonRecordEdit::slotSetEnabled);
     QObject::connect(m_dataTable,&TableView::signalEditRecord,
-                     m_pushButton, &PushButtonRecordEdit::slotSetModeToEditMode);
+                     m_pushButton, &PushButtonRecordEdit::slotSetModeToModeEdit);
     if (m_dataTable->selectionModel())
     {
         QObject::connect(m_dataTable->selectionModel(), &QItemSelectionModel::selectionChanged,
-                         m_pushButton, &PushButtonRecordEdit::slotSetModeToAddMode);
+                         m_pushButton, &PushButtonRecordEdit::slotSetModeToModeAdd);
     }
 }

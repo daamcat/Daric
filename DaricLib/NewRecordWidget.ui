@@ -57,12 +57,18 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QDateEdit" name="dateEditShoppingDate">
+          <widget class="DateEdit" name="dateEditShoppingDate">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="mouseTracking">
+            <bool>false</bool>
+           </property>
+           <property name="readOnly">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -100,7 +106,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonInsert">
+      <widget class="PushButtonRecordEdit" name="pushButtonInsert">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -132,6 +138,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PushButtonRecordEdit</class>
+   <extends>QPushButton</extends>
+   <header>PushButtonRecordEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DateEdit</class>
+   <extends>QDateEdit</extends>
+   <header location="global">DateEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

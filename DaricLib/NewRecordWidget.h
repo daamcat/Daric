@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::NewRecordWidget *ui;
+
+protected:
+    void mousePressEvent(QMouseEvent* event) override;
+
 };
 
 #endif // NEWRECORDWIDGET_H
