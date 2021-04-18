@@ -1,7 +1,7 @@
 #ifndef EDITRECORD_H
 #define EDITRECORD_H
 
-class DatabaseManager;
+class MySqlTableModel2;
 class TableView;
 class TableWidget;
 class PushButtonRecordEdit;
@@ -12,7 +12,7 @@ class EditRecord : public QObject
 {
     Q_OBJECT
 public:
-    EditRecord(DatabaseManager* databaseManager,
+    EditRecord(MySqlTableModel2* tableModel,
                TableView* tableView,
                TableWidget* tableWidget,
                PushButtonRecordEdit* pushButton);
@@ -22,7 +22,7 @@ private slots:
     void slotEditRecordInModel();
 
 private:
-    DatabaseManager* m_databaseManager = nullptr;
+    MySqlTableModel2* m_tableModel = nullptr;
     TableView* m_tableView = nullptr;
     TableWidget* m_tableWidget = nullptr;
     PushButtonRecordEdit* m_pushButton = nullptr;

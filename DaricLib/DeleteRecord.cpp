@@ -1,15 +1,15 @@
 #include "DeleteRecord.h"
-#include "databasemanager.h"
+#include "MySqlTableModel2.h"
 #include "TableView.h"
 
 #include <QObject>
 
 
-DeleteRecord::DeleteRecord(DatabaseManager* databaseManager, TableView* tableView) :
-    m_databaseManager(databaseManager),
+DeleteRecord::DeleteRecord(MySqlTableModel2* tableModel, TableView* tableView) :
+    m_tableModel(tableModel),
     m_tableView(tableView)
 {
     QObject::connect(m_tableView, &TableView::signalDeleteRecord,
-                     m_databaseManager, &DatabaseManager::slotRemoveRecord);
+                     m_tableModel, &MySqlTableModel2::slotRemoveRecord);
 
 }

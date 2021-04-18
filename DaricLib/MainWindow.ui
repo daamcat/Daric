@@ -53,68 +53,8 @@
             <bool>false</bool>
            </attribute>
           </widget>
-          <widget class="NewRecordWidget" name="widget" native="true"/>
-          <widget class="QWidget" name="">
-           <layout class="QHBoxLayout" name="horizontalLayoutNewRecord">
-            <item>
-             <widget class="TableWidget" name="tableWidgetNewRecord">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="verticalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOff</enum>
-              </property>
-              <property name="horizontalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOff</enum>
-              </property>
-              <property name="selectionMode">
-               <enum>QAbstractItemView::NoSelection</enum>
-              </property>
-              <property name="rowCount">
-               <number>1</number>
-              </property>
-              <attribute name="horizontalHeaderVisible">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="horizontalHeaderHighlightSections">
-               <bool>true</bool>
-              </attribute>
-              <attribute name="verticalHeaderVisible">
-               <bool>false</bool>
-              </attribute>
-              <row/>
-             </widget>
-            </item>
-            <item>
-             <widget class="PushButtonRecordEdit" name="pushButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Insert</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+          <widget class="TableEditForm" name="tableEditForm" native="true"/>
+          <widget class="CostEntryForm" name="costEntryForm" native="true"/>
          </widget>
         </item>
         <item>
@@ -212,24 +152,20 @@
    <header>GraphicsView.h</header>
   </customwidget>
   <customwidget>
-   <class>TableWidget</class>
-   <extends>QTableWidget</extends>
-   <header>TableWidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>TableView</class>
    <extends>QTableView</extends>
    <header>TableView.h</header>
   </customwidget>
   <customwidget>
-   <class>PushButtonRecordEdit</class>
-   <extends>QPushButton</extends>
-   <header>PushButtonRecordEdit.h</header>
+   <class>TableEditForm</class>
+   <extends>QWidget</extends>
+   <header>TableEditForm.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
-   <class>NewRecordWidget</class>
+   <class>CostEntryForm</class>
    <extends>QWidget</extends>
-   <header>NewRecordWidget.h</header>
+   <header location="global">CostEntryForm.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

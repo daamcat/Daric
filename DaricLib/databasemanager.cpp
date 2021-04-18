@@ -26,7 +26,7 @@ DatabaseManager::DatabaseManager(const QString &databaseName)
     m_tableNames = m_databaseConnectionDefault.tables(QSql::Tables);
     if (!m_tableNames.isEmpty())
     {
-        setSelectedTableName(m_tableNames.first());
+        setDatabaseTableInModel(m_tableNames.first());
     }
 
     // Connection for property tables:
@@ -44,37 +44,17 @@ QString DatabaseManager::getSelectedTableName()
 {
     return m_selectedTableName;
 }
-void DatabaseManager::setSelectedTableName(const QString &tableName)
+void DatabaseManager::setDatabaseTableInModel(const QString &databaseTableName)
 {
-    m_selectedTableName = tableName;
+    m_selectedTableName = databaseTableName;
+    // Select to which database table the model must fit (the data in model doesn't get updated):
     m_tableModel->setTable(m_selectedTableName);
+    // Update the data in model with respect to the data in given database table:
     m_tableModel->select();
 
-    QHash<int , QByteArray> roleNames = m_tableModel->roleNames();
-    m_headerNames.clear();
-    for (int e : roleNames.keys())
-    {
-        m_roleNames.push_back(QString::number(e));
-    }
-
-    int nCols = m_tableModel->columnCount();
-    m_roleNames.clear();
-    for (int i = 0; i<nCols ; i++)
-    {
-        m_headerNames.push_back(m_tableModel->headerData(i, Qt::Orientation::Horizontal).toString());
-    }
-
-    emit signalTableChanged(m_headerNames);
+    emit signalTableChanged(m_tableModel->getHeaderNames());
 }
 
-QStringList DatabaseManager::getRoleNames()
-{
-    return m_roleNames;
-}
-QStringList DatabaseManager::getHeaderNames()
-{
-    return m_headerNames;
-}
 
 QStringList DatabaseManager::getTableNames()
 {
@@ -83,7 +63,7 @@ QStringList DatabaseManager::getTableNames()
 
 MySqlTableModel2* DatabaseManager::getTableModel(const QString &tableName)
 {
-    setSelectedTableName(tableName);
+    setDatabaseTableInModel(tableName);
     const QString propertyTableName = tableName + m_config.tableNamePropertiesEnding;
     if (m_tableNames.contains(propertyTableName))
     {
@@ -98,86 +78,8 @@ MySqlTableModel2* DatabaseManager::getCurrentTableModel()
 }
 
 
-bool DatabaseManager::addRecord(const int& row, QMap<int , QString> values)
-{
-    if (!m_tableModel || values.empty())
-    {
-        return false;
-    }
 
-    QSqlRecord record = m_tableModel->record();
 
-    for (int i : values.keys())
-    {
-        record.setValue(i,values[i]);
-    }
-
-    // How to get primary key:
-    const QSqlIndex index = m_tableModel->primaryKey();
-    QString fieldName = index.fieldName(0);
-    //record.setGenerated(fieldName,true);
-    //bool isAuto = index.field(fieldName).isAutoValue();
-
-    bool success = m_tableModel->insertRecord(row,record);
-    m_tableModel->submitAll();
-    return success;
-}
-
-bool DatabaseManager::setRecord(const int& row, QMap<int , QString> values)
-{
-    // Why don't I use "QSqlRecord::replace()"???
-    // Here uses "setRecord" for editing too: https://doc.qt.io/qt-5/sql-model.html
-    if (!m_tableModel || values.empty())
-    {
-        return false;
-    }
-    QSqlRecord record = m_tableModel->record();
-
-    for (int i : values.keys())
-    {
-        record.setValue(i,values[i]);
-    }
-
-    bool success = m_tableModel->setRecord(row,record);
-    m_tableModel->submitAll();
-    return success;
-}
-
-QSqlRecord DatabaseManager::getRecord(const int& row)
-{
-    if (row >= m_tableModel->rowCount())
-    {
-        return QSqlRecord();
-    }
-    return m_tableModel->record(row);
-}
-
-QMap<QString , QString> DatabaseManager::getRow(const int& row)
-{
-    QMap<QString , QString> values;
-    if (row >= m_tableModel->rowCount())
-    {
-        return values;
-    }
-
-    QSqlRecord record = m_tableModel->record(row);
-    for (QString headerName : m_headerNames)
-    {
-        values[headerName] = record.value(headerName).toString();
-    }
-    return values;
-}
-
-bool DatabaseManager::slotRemoveRecord(int row)
-{
-    if (!m_tableModel)
-    {
-        return false;
-    }
-    bool success = m_tableModel->removeRow(row);
-    m_tableModel->submitAll();
-    return success;
-}
 
 QMap<QString,Field> DatabaseManager::getTableProperties()
 {

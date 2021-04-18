@@ -26,7 +26,6 @@ public:
     const QString dateDisplayFormat = "dd.MM.yyyy";
 
     const QString foreignKeyTableIdHeader = "ID";
-    const QString foreignKeyTableNameHeader = "Name";
 
 
 };

@@ -38,40 +38,12 @@ struct DisplayType
 
     static int enumToInt(DisplayTypeEnum en)
     {
-        switch (en)
-        {
-        case DisplayTypeEnum::foreignKey:
-            return 0;
-        case DisplayTypeEnum::date:
-            return 1;
-        case DisplayTypeEnum::dateTime:
-            return 2;
-        case DisplayTypeEnum::text:
-            return 3;
-        case DisplayTypeEnum::integer:
-            return 4;
-        case DisplayTypeEnum::real:
-            return 5;
-        }
+        return static_cast<int>(en);
     }
 
     static DisplayTypeEnum intToEnum(int en)
     {
-        switch (en)
-        {
-        case 0:
-            return DisplayTypeEnum::foreignKey;
-        case 1:
-            return DisplayTypeEnum::date;
-        case 2:
-            return DisplayTypeEnum::dateTime;
-        case 3:
-            return DisplayTypeEnum::text;
-        case 4:
-            return DisplayTypeEnum::integer;
-        case 5:
-            return DisplayTypeEnum::real;
-        }
+        return static_cast<DisplayTypeEnum>(en);
     }
 
     // Order is important:
@@ -242,8 +214,12 @@ public:
 
 private:
     QVector<Field> m_tableCosts;
-    QVector<Field> m_tableForeignKeys;
+    QVector<Field> m_tableForeignKeysTag;
+    QVector<Field> m_tableForeignKeysPaymentMean;
+    QVector<Field> m_tableForeignKeysShoppingSource;
     QVector<Field> m_tableForeignKeysCurrency;
+    QVector<Field> m_tableForeignKeysDisplayType;
+    QVector<Field> m_tableForeignKeysDataType;
     QVector<Field> m_tableProperties;
 
 };

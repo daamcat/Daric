@@ -41,16 +41,33 @@ CreateSqliteDatabase::CreateSqliteDatabase()
     m_tableCosts.push_back(ShoppingSource);
 
     Field ID {"ID" , "ID", "INTEGER", " INTEGER PRIMARY KEY AUTOINCREMENT", 0 , 0 , DisplayType::DisplayTypeEnum::integer, 0, 1, config.visibilityLevelUser};
-    m_tableForeignKeys.push_back(ID);
-    Field Name {"Name" , "Name", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
-    m_tableForeignKeys.push_back(Name);
+    m_tableForeignKeysTag.push_back(ID);
+    Field foreignKeyTag {"Tag" , "Tag", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
+    m_tableForeignKeysTag.push_back(foreignKeyTag);
+
+    m_tableForeignKeysShoppingSource.push_back(ID);
+    Field foreignKeyShoppingSource {"ShoppingSource" , "Shopping source", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
+    m_tableForeignKeysShoppingSource.push_back(foreignKeyShoppingSource);
+
+    m_tableForeignKeysPaymentMean.push_back(ID);
+    Field foreignKeyPaymentMean {"PaymentMean" , "Payment mean", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
+    m_tableForeignKeysPaymentMean.push_back(foreignKeyPaymentMean);
 
     m_tableForeignKeysCurrency.push_back(ID);
-    m_tableForeignKeysCurrency.push_back(Name);
+    Field foreignKeyCurrency {"Currency" , "Currency", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
+    m_tableForeignKeysCurrency.push_back(foreignKeyCurrency);
     Field ExchangeRateToEuro {"ExchangeRateToEuro" , "Exchange to Euro", "REAL", "", 1 , 0 , DisplayType::DisplayTypeEnum::real, 1, 0, config.visibilityLevelUser};
     m_tableForeignKeysCurrency.push_back(ExchangeRateToEuro);
     Field Symbol {"Symbol" , "Symbol of currency", "TEXT", "", 1 , 0 , DisplayType::DisplayTypeEnum::text, 1, 0, config.visibilityLevelUser};
     m_tableForeignKeysCurrency.push_back(Symbol);
+
+    m_tableForeignKeysDisplayType.push_back(ID);
+    Field foreignKeyDisplayType {"DisplayType" , "Display type", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
+    m_tableForeignKeysDisplayType.push_back(foreignKeyDisplayType);
+
+    m_tableForeignKeysDataType.push_back(ID);
+    Field foreignKeyDataType {"DataType" , "Data type", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
+    m_tableForeignKeysDataType.push_back(foreignKeyDataType);
 
     m_tableProperties.push_back(ID);
     Field fieldName {"fieldName" , "fieldName", "TEXT", "NOT NULL UNIQUE", 1 , 0 , DisplayType::DisplayTypeEnum::text, 0, 0, config.visibilityLevelUser};
@@ -95,12 +112,12 @@ CreateSqliteDatabase::CreateSqliteDatabase()
     // Create tables in database
     //++++++++++++++++++
     createTable(QString("Currency"), m_tableForeignKeysCurrency);
-    createTable(QString("Tag"), m_tableForeignKeys);
-    createTable(QString("PaymentMean"), m_tableForeignKeys);
-    createTable(QString("ShoppingSource"), m_tableForeignKeys);
+    createTable(QString("Tag"), m_tableForeignKeysTag);
+    createTable(QString("PaymentMean"), m_tableForeignKeysPaymentMean);
+    createTable(QString("ShoppingSource"), m_tableForeignKeysShoppingSource);
     createTable(QString("Costs"), m_tableCosts);
-    createTable(QString("DisplayType"), m_tableForeignKeys);
-    createTable(QString("DataType"), m_tableForeignKeys);
+    createTable(QString("DisplayType"), m_tableForeignKeysDisplayType);
+    createTable(QString("DataType"), m_tableForeignKeysDataType);
 
     //++++++++++++++++++
     // Create property tables in database
@@ -117,23 +134,23 @@ CreateSqliteDatabase::CreateSqliteDatabase()
     // Add values to tables
     //++++++++++++++++++
     addRecordsToForeignKeyTable(QString("Currency"), m_tableForeignKeysCurrency, Currency::elements());
-    addRecordsToForeignKeyTable(QString("Tag"), m_tableForeignKeys, Tag::elements());
-    addRecordsToForeignKeyTable(QString("PaymentMean"), m_tableForeignKeys, PaymentMean::elements());
-    addRecordsToForeignKeyTable(QString("ShoppingSource"), m_tableForeignKeys, ShoppingSource::elements());
-    addRecordsToForeignKeyTable(QString("DisplayType"), m_tableForeignKeys, DisplayType::elements());
-    addRecordsToForeignKeyTable(QString("DataType"), m_tableForeignKeys, DataType::elements());
+    addRecordsToForeignKeyTable(QString("Tag"), m_tableForeignKeysTag, Tag::elements());
+    addRecordsToForeignKeyTable(QString("PaymentMean"), m_tableForeignKeysPaymentMean, PaymentMean::elements());
+    addRecordsToForeignKeyTable(QString("ShoppingSource"), m_tableForeignKeysShoppingSource, ShoppingSource::elements());
+    addRecordsToForeignKeyTable(QString("DisplayType"), m_tableForeignKeysDisplayType, DisplayType::elements());
+    addRecordsToForeignKeyTable(QString("DataType"), m_tableForeignKeysDataType, DataType::elements());
     addRecordsToCostsTable(QString("Costs"), m_tableCosts, 5);
 
     //++++++++++++++++++
     // Add values to property tables
     //++++++++++++++++++
     addRecordsToPropertyTable(QString("Currency_properties"), m_tableProperties, m_tableForeignKeysCurrency);
-    addRecordsToPropertyTable(QString("Tag_properties"), m_tableProperties, m_tableForeignKeys);
-    addRecordsToPropertyTable(QString("PaymentMean_properties"), m_tableProperties, m_tableForeignKeys);
-    addRecordsToPropertyTable(QString("ShoppingSource_properties"), m_tableProperties, m_tableForeignKeys);
+    addRecordsToPropertyTable(QString("Tag_properties"), m_tableProperties, m_tableForeignKeysTag);
+    addRecordsToPropertyTable(QString("PaymentMean_properties"), m_tableProperties, m_tableForeignKeysPaymentMean);
+    addRecordsToPropertyTable(QString("ShoppingSource_properties"), m_tableProperties, m_tableForeignKeysShoppingSource);
     addRecordsToPropertyTable(QString("Costs_properties"), m_tableProperties, m_tableCosts);
-    addRecordsToPropertyTable(QString("DisplayType_properties"), m_tableProperties, m_tableForeignKeys);
-    addRecordsToPropertyTable(QString("DataType_properties"), m_tableProperties, m_tableForeignKeys);
+    addRecordsToPropertyTable(QString("DisplayType_properties"), m_tableProperties, m_tableForeignKeysDisplayType);
+    addRecordsToPropertyTable(QString("DataType_properties"), m_tableProperties, m_tableForeignKeysDataType);
 
     //++++++++++++++++++
     // Close and copy database

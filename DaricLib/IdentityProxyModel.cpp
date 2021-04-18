@@ -38,7 +38,8 @@ IdentityProxyModel::~IdentityProxyModel()
 
 QVariant IdentityProxyModel::data(const QModelIndex &index, int role) const
 {
-    QString headerName = this->headerData(index.column(),
+
+    QString headerName = this->sourceModel()->headerData(index.column(),
                                           Qt::Orientation::Horizontal,
                                           Qt::ItemDataRole::DisplayRole).toString();
     Field props = m_tableProperties.value(headerName);

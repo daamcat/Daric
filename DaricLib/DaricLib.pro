@@ -32,8 +32,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         AddRecord.cpp \
+        ChangeTable.cpp \
         Chart.cpp \
         Configuration.cpp \
+        CostEntryForm.cpp \
         CreateSqliteDatabase.cpp \
         DateEdit.cpp \
         DeleteRecord.cpp \
@@ -42,9 +44,8 @@ SOURCES += \
         GraphicsView.cpp \
         IdentityProxyModel.cpp \
         MySqlTableModel2.cpp \
-        NewRecordWidget.cpp \
         PushButtonRecordEdit.cpp \
-        TableManager.cpp \
+        TableEditForm.cpp \
         TableModel.cpp \
         TableView.cpp \
         TableWidget.cpp \
@@ -57,8 +58,10 @@ SOURCES += \
 
 HEADERS += \
         AddRecord.h \
+        ChangeTable.h \
         Chart.h \
         Configuration.h \
+        CostEntryForm.h \
         CreateSqliteDatabase.h \
         DateEdit.h \
         DeleteRecord.h \
@@ -68,9 +71,8 @@ HEADERS += \
         IdentityProxyModel.h \
         MainWindow.h \
         MySqlTableModel2.h \
-        NewRecordWidget.h \
         PushButtonRecordEdit.h \
-        TableManager.h \
+        TableEditForm.h \
         TableModel.h \
         TableView.h \
         TableWidget.h \
@@ -81,8 +83,9 @@ HEADERS += \
 
 
 FORMS += \
+        CostEntryForm.ui \
         MainWindow.ui \
-        NewRecordWidget.ui
+        TableEditForm.ui
 
 
 unix {

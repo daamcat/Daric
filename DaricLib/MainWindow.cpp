@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "ui_TableEditForm.h"
 
 #include "TableModel.h"
 #include "TableView.h"
@@ -13,13 +14,15 @@
 #include "GraphicsView.h"
 #include "MySqlTableModel2.h"
 #include "databasemanager.h"
-#include "TableManager.h"
+#include "ChangeTable.h"
 #include "UserActivityController.h"
 #include "DeleteRecord.h"
 #include "EditRecord.h"
 #include "AddRecord.h"
 #include "IdentityProxyModel.h"
 #include "Configuration.h"
+#include "TableEditForm.h"
+#include "CostEntryForm.h"
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/core/core.hpp>
@@ -44,28 +47,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBoxTables->addItems(m_manager->getTableNames());
     connect(ui->pushButtonDebug, &QPushButton::clicked,this,&MainWindow::slotPushButtonDebugClicked);
 
-    TableManager* tableManager = new TableManager(ui->comboBoxTables,
+    ChangeTable* changeTable = new ChangeTable(ui->comboBoxTables,
                                                   ui->tableView,
-                                                  ui->tableWidgetNewRecord ,
+                                                  ui->tableEditForm->getTableWidget() ,
                                                   m_manager,
                                                   this);
 
     UserActivityController activityController(ui->tableView,
-                                              ui->tableWidgetNewRecord,
-                                              ui->pushButton,
+                                              ui->tableEditForm->getTableWidget() ,
+                                              ui->tableEditForm->getPushButtonRecordEdit(),
                                               ui->comboBoxTables);
 
-    DeleteRecord deleteRecord(m_manager,ui->tableView);
+    DeleteRecord deleteRecord(m_manager->getCurrentTableModel(),ui->tableView);
 
-    EditRecord* editRecord = new EditRecord(m_manager,
+    EditRecord* editRecord = new EditRecord(m_manager->getCurrentTableModel(),
                                             ui->tableView,
-                                            ui->tableWidgetNewRecord,
-                                            ui->pushButton);
+                                            ui->tableEditForm->getTableWidget() ,
+                                            ui->tableEditForm->getPushButtonRecordEdit());
 
-    AddRecord* addRecord = new AddRecord(m_manager,
+    AddRecord* addRecord = new AddRecord(m_manager->getCurrentTableModel(),
                                             ui->tableView,
-                                            ui->tableWidgetNewRecord,
-                                            ui->pushButton);
+                                            ui->tableEditForm->getTableWidget() ,
+                                            ui->tableEditForm->getPushButtonRecordEdit());
 
     //******************
     // Graph

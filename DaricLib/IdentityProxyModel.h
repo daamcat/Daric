@@ -23,6 +23,7 @@ public:
     //QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 
+
 private:
     QMap<QString,Field> m_tableProperties;
     Configuration m_config;

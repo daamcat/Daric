@@ -24,24 +24,16 @@ public:
     QStringList getTableNames();
     MySqlTableModel2* getTableModel(const QString &tableName);
     MySqlTableModel2* getCurrentTableModel();
-    QStringList getRoleNames();
-    QStringList getHeaderNames();
-    bool addRecord(const int& row, QMap<int , QString> values);
-    bool setRecord(const int& row, QMap<int , QString> values);
-    QSqlRecord getRecord(const int& row);
-    QMap<QString , QString> getRow(const int& row);
 
     QMap<QString,Field> getTableProperties();
 
 signals:
     void signalTableChanged(QStringList headers);
 
-public slots:
-    bool slotRemoveRecord(int row);
 
 
 private:
-    void setSelectedTableName(const QString &tableName);
+    void setDatabaseTableInModel(const QString &databaseTableName);
     void readTablePropertiesFromDatabase(const QString &tableName);
 
 
@@ -51,8 +43,6 @@ private:
     QString m_selectedTableName;
     MySqlTableModel2* m_tableModel;
 
-    QStringList m_roleNames;
-    QStringList m_headerNames;
     QMap<QString,Field> m_tableProperties;
     Configuration m_config;
 

@@ -11,6 +11,6 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 
-//    CreateSqliteDatabase db;
-//    return 0;
+    //CreateSqliteDatabase db;
+    //return 0;
 }

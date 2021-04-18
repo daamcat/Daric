@@ -1,7 +1,7 @@
 #ifndef ADDRECORD_H
 #define ADDRECORD_H
 
-class DatabaseManager;
+class MySqlTableModel2;
 class TableView;
 class TableWidget;
 class PushButtonRecordEdit;
@@ -12,7 +12,7 @@ class AddRecord : public QObject
 {
     Q_OBJECT
 public:
-    AddRecord(DatabaseManager* databaseManager,
+    AddRecord(MySqlTableModel2* sqlTableModel,
                TableView* tableView,
                TableWidget* tableWidget,
                PushButtonRecordEdit* pushButton);
@@ -21,7 +21,7 @@ private slots:
     void slotAddRecordInModel();
 
 private:
-    DatabaseManager* m_databaseManager = nullptr;
+    MySqlTableModel2* m_sqlTableModel = nullptr;
     TableView* m_tableView = nullptr;
     TableWidget* m_tableWidget = nullptr;
     PushButtonRecordEdit* m_pushButton = nullptr;

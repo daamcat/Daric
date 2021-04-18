@@ -1,17 +1,17 @@
 #ifndef DELETERECORD_H
 #define DELETERECORD_H
 
-class DatabaseManager;
+class MySqlTableModel2;
 class TableView;
 
 
 class DeleteRecord
 {
 public:
-    DeleteRecord(DatabaseManager* databaseManager, TableView* tableView);
+    DeleteRecord(MySqlTableModel2* tableModel, TableView* tableView);
 
 private:
-    DatabaseManager* m_databaseManager = nullptr;
+    MySqlTableModel2* m_tableModel = nullptr;
     TableView* m_tableView = nullptr;
 };
 
