@@ -22,10 +22,13 @@ public:
 
     QString getSelectedTableName();
     QStringList getTableNames();
-    MySqlTableModel2* getTableModel(const QString &tableName);
+    void changeTable(const QString &tableName);
+    MySqlTableModel2* getTableModel();
     MySqlTableModel2* getCurrentTableModel();
 
     QMap<QString,Field> getTableProperties();
+    QVector<Field> getTablePropertiesVector();
+    static QMap<int,QString> getFieldsFromForeignKeyTable(const QString& databaseName, const QString& tableName);
 
 signals:
     void signalTableChanged(QStringList headers);
@@ -35,15 +38,16 @@ signals:
 private:
     void setDatabaseTableInModel(const QString &databaseTableName);
     void readTablePropertiesFromDatabase(const QString &tableName);
+    void readTablePropertiesFromDatabaseDeprecated(const QString &tableName);
 
 
-    QSqlDatabase m_databaseConnectionDefault;
-    QSqlDatabase m_databaseConnectionForPropertiesTables;
+    QString m_databaseName;
     QStringList m_tableNames;
     QString m_selectedTableName;
     MySqlTableModel2* m_tableModel;
 
     QMap<QString,Field> m_tableProperties;
+    QVector<Field> m_tablePropertiesVector;
     Configuration m_config;
 
 };

@@ -27,6 +27,12 @@ public:
 
     const QString foreignKeyTableIdHeader = "ID";
 
+    const QString TableNameCosts = "Costs";
+    const QString TableNameTag = "Tag";
+    const QString TableNameCurrency = "Currency";
+    const QString TableNamePaymentMean = "PaymentMean";
+    const QString TableNameShoppingSource = "ShoppingSource";
+
 
 };
 

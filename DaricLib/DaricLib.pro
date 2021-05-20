@@ -37,6 +37,7 @@ SOURCES += \
         Configuration.cpp \
         CostEntryForm.cpp \
         CreateSqliteDatabase.cpp \
+        DatabaseManager.cpp \
         DateEdit.cpp \
         DeleteRecord.cpp \
         EditRecord.cpp \
@@ -52,7 +53,6 @@ SOURCES += \
         UserActivityController.cpp \
         MainWindow.cpp \
         mysqltablemodel.cpp \
-        databasemanager.cpp \
         DaricLib.cpp
 
 
@@ -63,6 +63,7 @@ HEADERS += \
         Configuration.h \
         CostEntryForm.h \
         CreateSqliteDatabase.h \
+        DatabaseManager.h \
         DateEdit.h \
         DeleteRecord.h \
         EditRecord.h \
@@ -78,7 +79,6 @@ HEADERS += \
         TableWidget.h \
         UserActivityController.h \
         mysqltablemodel.h \
-        databasemanager.h \
         DaricLib.h
 
 

@@ -13,7 +13,7 @@
 #include <QSqlRelationalDelegate>
 #include "GraphicsView.h"
 #include "MySqlTableModel2.h"
-#include "databasemanager.h"
+#include "DatabaseManager.h"
 #include "ChangeTable.h"
 #include "UserActivityController.h"
 #include "DeleteRecord.h"
@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                                   ui->tableView,
                                                   ui->tableEditForm->getTableWidget() ,
                                                   m_manager,
+                                                  ui->costEntryForm,
                                                   this);
 
     UserActivityController activityController(ui->tableView,
@@ -69,6 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                             ui->tableView,
                                             ui->tableEditForm->getTableWidget() ,
                                             ui->tableEditForm->getPushButtonRecordEdit());
+
 
     //******************
     // Graph
