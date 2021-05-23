@@ -34,6 +34,7 @@ SOURCES += \
         AddRecord.cpp \
         ChangeTable.cpp \
         Chart.cpp \
+        ComboBoxCostEntry.cpp \
         Configuration.cpp \
         CostEntryForm.cpp \
         CreateSqliteDatabase.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
         AddRecord.h \
         ChangeTable.h \
         Chart.h \
+        ComboBoxCostEntry.h \
         Configuration.h \
         CostEntryForm.h \
         CreateSqliteDatabase.h \

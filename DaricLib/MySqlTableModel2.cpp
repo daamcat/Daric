@@ -10,6 +10,23 @@ MySqlTableModel2::MySqlTableModel2(QObject *parent, QSqlDatabase db) : QSqlRelat
 {
     setEditStrategy(EditStrategy::OnManualSubmit);
 
+    // "JOIN"s are used to retrieve data from multiple tables (Ref: https://www.techonthenet.com/sqlite/joins.php)
+    // You have Tables T1 and T2 with fields:
+    // T1: "Name" "ID"
+    // T2: "ID" "Title"
+    // If we JOIN field "ID" in T1 with T2, we can retrieve "Title" for "Name". (Look at example in ref!)
+    // Now! There are two types of JOIN: Inner join and left join.
+    // In inner join, if there is a "Name" whose "ID" is NULL, since JOIN doesn't find a "Title",
+    // the whole record will be omitted.
+    // In left join, if there is a "Name" whose "ID" is NULL, the "Title" will be set to NULL, but the
+    // record will not be omitted.
+    // Using foreign key is another example of JOIN. And here we use foreign keys. Per default, the
+    // join mode of QSqlRelationalTableModel is inner join, meaning that if the "relation" between
+    // two tables for a record can not be established, the whole record will be omitted. And this is NOT
+    // what we want (because it is totally OK if for a foreign key field we have no value).
+    // Therefore we change join mode for our model to prevent those records being omitted:
+    // (Ref: https://forum.qt.io/topic/6817/qsqlrelation-fails-on-a-null-in-foreign-key-column/10)
+    setJoinMode(QSqlRelationalTableModel::JoinMode::LeftJoin);
 }
 
 QVariant MySqlTableModel2::headerData(int section, Qt::Orientation orientation, int role) const

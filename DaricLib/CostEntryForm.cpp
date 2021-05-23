@@ -4,8 +4,10 @@
 #include "DatabaseManager.h"
 #include "Configuration.h"
 #include "MySqlTableModel2.h"
+#include "ComboBoxCostEntry.h"
 
 #include <QDebug>
+#include <QDoubleSpinBox>
 
 CostEntryForm::CostEntryForm(QWidget *parent) :
     QWidget(parent),
@@ -14,31 +16,17 @@ CostEntryForm::CostEntryForm(QWidget *parent) :
     ui->setupUi(this);
     Configuration config;
 
-    m_tags = DatabaseManager::getFieldsFromForeignKeyTable(config.databaseName, config.TableNameTag);
-    for (QString e : m_tags.values())
-    {
-        ui->comboBoxTag->addItem(e);
-    }
+    checkPushButtonStatus();
 
-    m_shoppingSources = DatabaseManager::getFieldsFromForeignKeyTable(config.databaseName, config.TableNameShoppingSource);
-    for (QString e : m_shoppingSources.values())
-    {
-        ui->comboBoxShoppingSource->addItem(e);
-    }
-
-    m_paymentMeans = DatabaseManager::getFieldsFromForeignKeyTable(config.databaseName, config.TableNamePaymentMean);
-    for (QString e : m_paymentMeans.values())
-    {
-        ui->comboBoxPaymentMean->addItem(e);
-    }
-
-    m_currencies = DatabaseManager::getFieldsFromForeignKeyTable(config.databaseName, config.TableNameCurrency);
-    for (QString e : m_currencies.values())
-    {
-        ui->comboBoxCurrency->addItem(e);
-    }
+    ui->comboBoxTag->setItems(DatabaseManager::getFieldsFromForeignKeyTable(config.databaseName, config.TableNameTag));
+    ui->comboBoxShoppingSource->setItems(DatabaseManager::getFieldsFromForeignKeyTable(config.databaseName, config.TableNameShoppingSource));
+    ui->comboBoxPaymentMean->setItems(DatabaseManager::getFieldsFromForeignKeyTable(config.databaseName, config.TableNamePaymentMean));
+    ui->comboBoxCurrency->setItems(DatabaseManager::getFieldsFromForeignKeyTable(config.databaseName, config.TableNameCurrency));
 
     connect(ui->pushButtonInsert, &QPushButton::clicked, this, &CostEntryForm::insertRecord);
+    connect(ui->lineEditDescription, &QLineEdit::textChanged , this , &CostEntryForm::checkPushButtonStatus);
+    // Double spinbox has always a value. Hence checking if it is empty or not doesn't make sense.
+    connect(ui->doubleSpinBoxPrice, qOverload<const QString&>(&QDoubleSpinBox::valueChanged), this, &CostEntryForm::checkPushButtonStatus);
 }
 
 CostEntryForm::~CostEntryForm()
@@ -72,17 +60,28 @@ void CostEntryForm::insertRecord()
     //"Withdrawal REAL,"
     values[4] = QString::number(ui->pushButtonWithdrawal->isChecked() ? 1 : 0);
     //"Tag INTEGER,"
-    values[5] = QString::number(m_tags.key(ui->comboBoxTag->currentText()));
+    values[5] = ui->comboBoxTag->getCurrentItem();
     //"Currency INTEGER,"
-    values[6] = QString::number(m_currencies.key(ui->comboBoxCurrency->currentText()));
+    values[6] = ui->comboBoxCurrency->getCurrentItem();
     //"LastEditDateTime INTEGER,"
     // We set it equal to insertion date-time.
     values[7] = QString::number(dateTimeNow);
     //"PaymentMean INTEGER,"
-    values[8] = QString::number(m_paymentMeans.key(ui->comboBoxPaymentMean->currentText()));
+    values[8] = ui->comboBoxPaymentMean->getCurrentItem();
     //"ShoppingSource INTEGER);";
-    values[9] = QString::number(m_shoppingSources.key(ui->comboBoxShoppingSource->currentText()));
+    values[9] = ui->comboBoxShoppingSource->getCurrentItem();
 
-    m_tableModel->addRecord(-1,values); // -1: Add record to the end of model.
+    bool success = m_tableModel->addRecord(-1,values); // -1: Add record to the end of model.
+    if (success)
+    {
+        ui->lineEditDescription->clear();
+        ui->doubleSpinBoxPrice->clear();
+    }
+}
+
+void CostEntryForm::checkPushButtonStatus()
+{
+    ui->pushButtonInsert->setEnabled(!ui->lineEditDescription->text().isEmpty() &&
+                                     !ui->doubleSpinBoxPrice->text().isEmpty());
 }
 

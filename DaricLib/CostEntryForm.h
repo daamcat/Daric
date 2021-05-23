@@ -35,6 +35,9 @@ private:
 
     MySqlTableModel2* m_tableModel;
 
+    void checkPushButtonStatus();
+    void blah(double d){};
+
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;

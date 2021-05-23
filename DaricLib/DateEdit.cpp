@@ -18,6 +18,7 @@ DateEdit::DateEdit(QWidget* parent) : QDateEdit (parent)
     m_calendarWidget = new QCalendarWidget();
     m_calendarWidget->setWindowModality(Qt::WindowModality::ApplicationModal);
     m_calendarWidget->hide();
+    m_calendarWidget->setWindowTitle("Shopping date");
 
     connect(m_calendarWidget,&QCalendarWidget::activated,this,&DateEdit::slotSetDate);
 }

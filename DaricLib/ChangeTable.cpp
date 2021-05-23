@@ -35,7 +35,6 @@ ChangeTable::ChangeTable(QComboBox* comboBox,
     connect(m_databaseManager, &DatabaseManager::signalTableChanged, m_tableWidget, &TableWidget::slotSetHeaderNames);
     connect(m_comboBox, &QComboBox::currentTextChanged, this, &ChangeTable::slotSetTableInModel);
     connect(m_comboBox, &QComboBox::currentTextChanged, this, &ChangeTable::slotSetCostEntryFormVisibility);
-
 }
 
 void ChangeTable::slotSetTableInModel(const QString& tableName)
@@ -71,6 +70,10 @@ void ChangeTable::slotSetTableInModel(const QString& tableName)
 
         // Set the proxy model to view.
         m_tableView->setModel(m_proxyModel);
+
+        // What if a record has a field for foreign key, and the record in that field doesn't have value?
+        // QSqlRelationalTableModel::setJoinMode() must be set to LeftJoin. Otherwise (in InnerJoin mode)
+        // the record will be omitted.
     }
     else
         // If the table is property table,...
