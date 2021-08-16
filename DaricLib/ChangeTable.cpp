@@ -4,8 +4,10 @@
 #include "TableView.h"
 #include "TableWidget.h"
 #include "IdentityProxyModel.h"
+#include "SortFilterProxyModel.h"
 #include "MySqlTableModel2.h"
 #include "CostEntryForm.h"
+#include "TimeRangeForm.h"
 
 #include <QTableWidgetItem>
 #include <QComboBox>
@@ -18,12 +20,14 @@ ChangeTable::ChangeTable(QComboBox* comboBox,
                          TableWidget* tableWidget,
                          DatabaseManager* databaseManager,
                          CostEntryForm* costEntryForm,
+                         TimeRangeForm* timeRangeForm,
                          QObject* parent) :
   m_comboBox(comboBox),
   m_tableView(tableView),
   m_tableWidget(tableWidget),
   m_databaseManager(databaseManager),
-  m_costEntryForm(costEntryForm)
+  m_costEntryForm(costEntryForm),
+  m_timeRangeForm(timeRangeForm)
 {
     m_databaseManager->changeTable(m_comboBox->currentText());
     QStringList headerNames = m_databaseManager->getTableModel()->getHeaderNames();
@@ -35,6 +39,7 @@ ChangeTable::ChangeTable(QComboBox* comboBox,
     connect(m_databaseManager, &DatabaseManager::signalTableChanged, m_tableWidget, &TableWidget::slotSetHeaderNames);
     connect(m_comboBox, &QComboBox::currentTextChanged, this, &ChangeTable::slotSetTableInModel);
     connect(m_comboBox, &QComboBox::currentTextChanged, this, &ChangeTable::slotSetCostEntryFormVisibility);
+    connect(m_timeRangeForm, &TimeRangeForm::signalTimeRangeChanged, this, &ChangeTable::slotSetTimeRangeOnFilterModel);
 }
 
 void ChangeTable::slotSetTableInModel(const QString& tableName)
@@ -68,8 +73,14 @@ void ChangeTable::slotSetTableInModel(const QString& tableName)
         m_proxyModel = new IdentityProxyModel(tableProperties, this);
         m_proxyModel->setSourceModel(sqlTableModel);
 
+        m_proxyModel2 = new SortFilterProxyModel(tableProperties, this);
+        m_proxyModel2->setSourceModel(sqlTableModel);
+
         // Set the proxy model to view.
-        m_tableView->setModel(m_proxyModel);
+        m_tableView->setModel(m_proxyModel2);
+
+        // Now that the model is set to view, we want the columns to be wide enough for their contents:
+        m_tableView->resizeColumnsToContents();
 
         // What if a record has a field for foreign key, and the record in that field doesn't have value?
         // QSqlRelationalTableModel::setJoinMode() must be set to LeftJoin. Otherwise (in InnerJoin mode)
@@ -88,5 +99,13 @@ void ChangeTable::slotSetCostEntryFormVisibility(const QString& text)
 {
     m_costEntryForm->setVisible(text == m_config.TableNameCosts);
     m_costEntryForm->setSqlTableModel(m_databaseManager->getTableModel());
+    m_timeRangeForm->setVisible(text == m_config.TableNameCosts);
+}
+void ChangeTable::slotSetTimeRangeOnFilterModel(QDate dateFrom, QDate dateTo)
+{
+    if (m_proxyModel2)
+    {
+        m_proxyModel2->setFilterDate(dateFrom , dateTo);
+    }
 }
 

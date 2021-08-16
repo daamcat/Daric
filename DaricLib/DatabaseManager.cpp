@@ -259,3 +259,65 @@ QMap<int,QString> DatabaseManager::getFieldsFromForeignKeyTable(const QString& d
     QSqlDatabase::removeDatabase(connectionName);
     return result;
 }
+
+std::optional<double> DatabaseManager::getSumOfCostsBetweenTimeRange(int dateTimeFrom , int dateTimeTo)
+{
+    QString tableName = "Costs";
+    QString queryStr = "SELECT SUM(Price) FROM " + tableName + " WHERE InsertionDateTime BETWEEN " + QString::number(dateTimeFrom) + " AND " + QString::number(dateTimeTo) + ";";
+    QSqlQuery query(queryStr);
+
+    double result = 0;
+    const QString connectionName = "cnn3";
+
+    // We put the whole database connection and the query in a scope. We do this in order to be able to remove
+    // the connection to database after reading the desired records. For more info, read QSqlDatabase::removeDatabase().
+    {
+        // From Qt: " You can have multiple connections to one database."
+        // For whatever reason I am not able to specify connection name:
+        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE",connectionName);
+        db.setDatabaseName(m_databaseName);
+
+        if (!db.open())
+        {
+            qDebug()<<"Connection to database "<< m_databaseName <<" to access table " << tableName << " failed.";
+            return std::nullopt;
+        }
+        if (!db.isValid())
+        {
+            qDebug()<<"Connection to database "<< m_databaseName <<" to access table " << tableName << " is not valid.";
+            return std::nullopt;
+        }
+        // If we are here, database is open and valid.
+
+        const QString dmlStatement = "SELECT SUM(Price) FROM " + tableName + " WHERE InsertionDateTime BETWEEN "
+                + QString::number(dateTimeFrom)
+                + " AND "
+                + QString::number(dateTimeTo)
+                + ";";
+        QSqlQuery query(dmlStatement, db);
+        // We are sure that we only will use .next() to navigate through the records. Therefore, setting navigation
+        // to forward only improves performance and saves memory (Ref:Qt):
+        query.setForwardOnly(true);
+
+        // Execute the query:
+        if (!query.exec())
+        {
+            qDebug()<<"Couldn't execute query. Error: " + query.lastError().text();
+        }
+
+        // If exec() is successful, the state of query is "active". Otherwiese "inactive".
+        // exec() puts the query on an invalid record. But if we navigate the active query e.g. with next(),
+        // we can sweep the valid records returned by the query:
+        while (query.next())
+            // Navigating through valid records returned by query execution...
+        {
+            result += query.value(1).toDouble();
+        }
+
+        db.close();
+    }
+    // Now both database connection and query are destroyed, because they are out of scope (Ref: Qt)
+
+    QSqlDatabase::removeDatabase(connectionName);
+    return result;
+}

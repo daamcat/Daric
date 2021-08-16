@@ -16,6 +16,9 @@ public:
 protected:
     bool eventFilter(QObject* object, QEvent* event) override;
 
+signals:
+    void signalDateChanged(QDate date);
+
 private:
     QCalendarWidget* m_calendarWidget;
 

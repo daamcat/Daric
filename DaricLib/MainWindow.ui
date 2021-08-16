@@ -29,6 +29,9 @@
          <widget class="QComboBox" name="comboBoxTables"/>
         </item>
         <item>
+         <widget class="TimeRangeForm" name="timeRangeForm" native="true"/>
+        </item>
+        <item>
          <widget class="QSplitter" name="splitter">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -133,6 +136,13 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuInsert">
+    <property name="title">
+     <string>Insert</string>
+    </property>
+    <addaction name="actionWalletFilter"/>
+   </widget>
+   <addaction name="menuInsert"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -143,6 +153,11 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionWalletFilter">
+   <property name="text">
+    <string>Wallet filter</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -165,7 +180,13 @@
   <customwidget>
    <class>CostEntryForm</class>
    <extends>QWidget</extends>
-   <header location="global">CostEntryForm.h</header>
+   <header>CostEntryForm.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TimeRangeForm</class>
+   <extends>QWidget</extends>
+   <header location="global">TimeRangeForm.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

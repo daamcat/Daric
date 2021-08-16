@@ -33,6 +33,8 @@ public:
     const QString TableNamePaymentMean = "PaymentMean";
     const QString TableNameShoppingSource = "ShoppingSource";
 
+    const QString fieldNameShoppingDate = "ShoppingDate";
+
 
 };
 

@@ -10,6 +10,9 @@
 #include "CreateSqliteDatabase.h"
 #include "Configuration.h"
 
+#include <optional>
+
+
 
 class MySqlTableModel2;
 
@@ -30,6 +33,7 @@ public:
     QVector<Field> getTablePropertiesVector();
     static QMap<int,QString> getFieldsFromForeignKeyTable(const QString& databaseName, const QString& tableName);
 
+    std::optional<double> getSumOfCostsBetweenTimeRange(int dateTimeFrom , int dateTimeTo);
 signals:
     void signalTableChanged(QStringList headers);
 

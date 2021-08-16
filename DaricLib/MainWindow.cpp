@@ -23,6 +23,7 @@
 #include "Configuration.h"
 #include "TableEditForm.h"
 #include "CostEntryForm.h"
+#include "WalletFilterDialog.h"
 
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/core/core.hpp>
@@ -53,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                                   ui->tableEditForm->getTableWidget() ,
                                                   m_manager,
                                                   ui->costEntryForm,
+                                                  ui->timeRangeForm,
                                                   this);
 
     UserActivityController activityController(ui->tableView,
@@ -71,6 +73,10 @@ MainWindow::MainWindow(QWidget *parent) :
                                             ui->tableView,
                                             ui->tableEditForm->getTableWidget() ,
                                             ui->tableEditForm->getPushButtonRecordEdit());
+
+
+    connect(ui->actionWalletFilter, &QAction::triggered, this , &MainWindow::openWalletFilterDialog);
+
 
 
     //******************
@@ -99,6 +105,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QImage img = QImage(mat2.data,mat2.cols,mat2.rows,mat2.step,QImage::Format_RGB888);
     ui->labelImage->setPixmap(QPixmap::fromImage(img));
     ui->labelDebug->show();
+
 
 
 
@@ -134,6 +141,15 @@ void MainWindow::slotPushButtonDebugClicked()
     ui->labelImage->setPixmap(QPixmap::fromImage(img));
     ui->labelDebug->show();
 
+}
+
+void MainWindow::openWalletFilterDialog()
+{
+    if (!m_walletFilterDialog)
+    {
+        m_walletFilterDialog = new WalletFilterDialog();
+    }
+    m_walletFilterDialog->show();
 }
 
 

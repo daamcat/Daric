@@ -8,6 +8,9 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts sql
 
+# To include C++17 features
+CONFIG += c++17
+
 TARGET = DaricLib
 TEMPLATE = lib
 CONFIG += staticlib
@@ -47,12 +50,15 @@ SOURCES += \
         IdentityProxyModel.cpp \
         MySqlTableModel2.cpp \
         PushButtonRecordEdit.cpp \
+        SortFilterProxyModel.cpp \
         TableEditForm.cpp \
         TableModel.cpp \
         TableView.cpp \
         TableWidget.cpp \
+        TimeRangeForm.cpp \
         UserActivityController.cpp \
         MainWindow.cpp \
+        WalletFilterDialog.cpp \
         mysqltablemodel.cpp \
         DaricLib.cpp
 
@@ -75,11 +81,14 @@ HEADERS += \
         MainWindow.h \
         MySqlTableModel2.h \
         PushButtonRecordEdit.h \
+        SortFilterProxyModel.h \
         TableEditForm.h \
         TableModel.h \
         TableView.h \
         TableWidget.h \
+        TimeRangeForm.h \
         UserActivityController.h \
+        WalletFilterDialog.h \
         mysqltablemodel.h \
         DaricLib.h
 
@@ -87,7 +96,9 @@ HEADERS += \
 FORMS += \
         CostEntryForm.ui \
         MainWindow.ui \
-        TableEditForm.ui
+        TableEditForm.ui \
+        TimeRangeForm.ui \
+        WalletFilterDialog.ui
 
 
 unix {

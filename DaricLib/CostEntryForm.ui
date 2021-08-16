@@ -156,12 +156,12 @@
   <customwidget>
    <class>DateEdit</class>
    <extends>QDateEdit</extends>
-   <header>DateEdit.h</header>
+   <header location="global">DateEdit.h</header>
   </customwidget>
   <customwidget>
    <class>ComboBoxCostEntry</class>
    <extends>QComboBox</extends>
-   <header location="global">ComboBoxCostEntry.h</header>
+   <header>ComboBoxCostEntry.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

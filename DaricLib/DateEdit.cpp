@@ -29,7 +29,6 @@ bool DateEdit::eventFilter(QObject* object, QEvent *event)
     {
         if (event->type() == QMouseEvent::MouseButtonRelease)
         {
-            qDebug()<<"Mouse button is pressed in DateEdit!";
             m_calendarWidget->setSelectedDate(this->date());
             m_calendarWidget->show();
             return true;
@@ -42,4 +41,5 @@ bool DateEdit::eventFilter(QObject* object, QEvent *event)
 void DateEdit::slotSetDate(const QDate& date)
 {
     this->setDate(date);
+    emit signalDateChanged(date);
 }

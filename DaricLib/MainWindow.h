@@ -6,6 +6,7 @@
 
 
 class DatabaseManager;
+class WalletFilterDialog;
 namespace Ui {
 class MainWindow;
 }
@@ -19,9 +20,13 @@ public:
     ~MainWindow();
 
 private:
+    void openWalletFilterDialog();
+
+
     Ui::MainWindow *ui;
 
     DatabaseManager* m_manager;
+    WalletFilterDialog* m_walletFilterDialog;
 
 private slots:
     void slotPushButtonDebugClicked();
