@@ -4,7 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+# The name of this .pro file must be the same as the name of its containing folder. Otherwise qmake doesn't find it!!!
+
+QT       += core network gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets charts sql
 
@@ -27,7 +29,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Adds the DaricLib project path to the header file include lookup path
 INCLUDEPATH += $$PWD/../DaricLib
 
-include(../Config/Config.pri)
+include($$PWD/../Config/Config.pri)
+
 
 CONFIG += c++11
 
@@ -40,8 +43,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 
-# Adds the HelloQt2Lib.lib to the linker
+# Adds the DaricLibLib.lib to the linker:
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../DaricLib/release/ -lDaricLib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../DaricLib/debug/ -lDaricLib
+
+
+
 
 

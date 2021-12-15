@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tabTable">
        <attribute name="title">
@@ -123,6 +123,16 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tabDropbox">
+       <attribute name="title">
+        <string>Dropbox</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="WidgetDropBox" name="widgetDropBox" native="true"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -187,6 +197,12 @@
    <class>TimeRangeForm</class>
    <extends>QWidget</extends>
    <header location="global">TimeRangeForm.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetDropBox</class>
+   <extends>QWidget</extends>
+   <header location="global">WidgetDropBox.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

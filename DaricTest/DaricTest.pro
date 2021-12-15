@@ -1,3 +1,4 @@
+# The name of this .pro file must be the same as the name of its containing folder. Otherwise qmake doesn't find it!!!
 QT += core gui testlib
 
 

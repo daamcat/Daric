@@ -1,0 +1,13 @@
+Here is the problem:
+
+If in DaricSolution.pro I add:
+DaricLib.depends = dropboxQt
+
+I get qmake error:
+:-1: error: No rule to make target 'dropboxQt-qmake_all', needed by 'sub-DaricLib-qmake_all'.  Stop.
+
+If I comment it out, qmake builds without complaining. But I can not build the project. When I try to build the project, I receive the following error:
+MainWindow.cpp:-1: error: undefined reference to `dropboxQt::DropboxAuthInfo::DropboxAuthInfo()'
+
+I know that this error means that I have not linked against the library properly. But I don't know why. What is wrong with my linking?
+

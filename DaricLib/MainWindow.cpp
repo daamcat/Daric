@@ -30,7 +30,6 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-
 #include <QImage>
 #include <QPixmap>
 
@@ -106,8 +105,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->labelImage->setPixmap(QPixmap::fromImage(img));
     ui->labelDebug->show();
 
-
-
+    //******************
+    // Dropbox
+    //******************
+    //dropboxQt::DropboxAuthInfo authInfo;
 
 }
 
