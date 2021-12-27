@@ -7,13 +7,25 @@
 #include "dropbox/endpoint/DropboxAuthInfo.h"
 
 
+#include <QFile>
+
 WidgetDropBox::WidgetDropBox(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WidgetDropBox)
 {
     ui->setupUi(this);
 
-    QString argAuthFile = "C:/Projects/QtDropbox/dropboxQt-master-temp/examples/account-info/debug/token.info";
+    if (!QFile::exists("token.info"))
+        // If token file doesn't exist,...
+    {
+
+    }
+    //###########################
+    // Authorize
+    //###########################
+
+
+    QString argAuthFile = "C:/Projects/DropboxQt/dropboxQt-master-temp/examples/account-info/debug/token.info";
     dropboxQt::DropboxAuthInfo authInfo;
     // Read auth info file.
     if(!authInfo.readFromFile(argAuthFile))

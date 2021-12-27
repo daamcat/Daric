@@ -36,7 +36,6 @@ CONFIG += c++11
 
 SOURCES += main.cpp
 
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -47,7 +46,25 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../DaricLib/release/ -lDaricLib
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../DaricLib/debug/ -lDaricLib
 
+###################### Copy test folder to build directory ##################################
+# Ref: https://evileg.com/en/post/476/
 
+PWD_PATH = $$PWD/../Config
+DESTDIR_PATH = $$OUT_PWD/../Config
 
+win32 {
+  PWD_PATH ~= s,/,\\,g
+  DESTDIR_PATH ~= s,/,\\,g
+}
+unix {
 
+}
 
+# Before assembling the installers, you must copy the files from the project's output folder along with all the DLLs to the data folder that belongs to the package you are building.
+copydata.commands = $(COPY_DIR) $$PWD_PATH $$DESTDIR_PATH
+first.depends = $(first) copydata
+export(first.depends)
+export(copydata.commands)
+# We set a custom build target, in which we first perform file compiling and then the rest, which follows the QMake script
+QMAKE_EXTRA_TARGETS += first copydata
+###################### Copy test folder to build directory ##################################
